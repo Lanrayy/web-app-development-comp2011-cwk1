@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-title">
+    <h1>Completed Assessments</h1>
+</div>
+
+
+<div class="assessments-page-container">
+                <div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                            <li class="alert alert-success">{{ message }} </li>
+                            
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endwith %}
+            </div>
+
+    <div class="assessment-page">
+        {{ form.hidden_tag() }}
+        {% for p in data %}
+         <div class="uncompleted-assessments">
+             <div class="info-container">
+                 <div class="assessment-title">
+                     {{ p.title }}
+                 </div>
+                 <div>
+                     <div class="assessments-info">
+                         <p> <strong> Module Code: </strong> {{p.module_code}} |<strong> Deadline: </strong> {{ p.deadline }}  | <strong> Status: </strong> {{p.status}} </p>
+                     </div>
+                     <div class="description">
+                         <p> <strong> Description:</strong><br> {{ p.description }}   </p>
+                     </div>
+                 </div>
+             </div>
+             <!-- update button -->
+            <div class="update-btn-container">
+                <form method="post" name="completed">
+                    <button type="submit" name="button" value={{p.id}} class="btn btn-outline-primary update-btn">Mark Uncompleted</button>
+               </form>
+            </div>
+
+         </div>
+         {% endfor %}
+    </div>
+</div>
+
+
+{% endblock%}
